@@ -1,2 +1,1 @@
-# GlobalShop-app
-GlobalShop-app
+# GlobalShop Azure Platform
