@@ -9,7 +9,17 @@ service:
   targetPort: 80
 
 ingress:
-  enabled: false
+  enabled: true
+  className: nginx
+  hosts:
+    - host: frontend.128.203.67.3.nip.io  # Replace with your external IP
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - frontend.128.203.67.3.nip.io  # Replace with your external IP
+      secretName: frontend-tls
 
 resources: {}
 

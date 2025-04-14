@@ -9,7 +9,17 @@ service:
   targetPort: 3000
 
 ingress:
-  enabled: false
+  enabled: true
+  className: nginx
+  hosts:
+    - host: api.128.203.67.3.nip.io  # Replace with your external IP
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - api.128.203.67.3.nip.io  # Replace with your external IP
+      secretName: backend-tls
 
 resources: {}
 
