@@ -32,3 +32,11 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 80
+
+env:
+  - name: MONGODB_URI
+    value: mongodb://shopuser:shoppass123@mongodb.mongodb.svc.cluster.local:27017/globalshopdb
+  - name: REDIS_HOST
+    value: redis-master.redis.svc.cluster.local
+  - name: REDIS_PASSWORD
+    value: redispass123
