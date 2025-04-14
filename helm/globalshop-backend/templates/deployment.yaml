@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: globalshop-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: globalshop-backend
+  template:
+    metadata:
+      labels:
+        app: globalshop-backend
+    spec:
+      containers:
+      - name: globalshop-backend
+        image: globalshopacr.azurecr.io/globalshop-backend:v1
+        ports:
+        - containerPort: 4000

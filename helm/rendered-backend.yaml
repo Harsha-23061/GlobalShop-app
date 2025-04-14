@@ -1,0 +1,61 @@
+---
+# Source: globalshop-backend/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: globalshop-backend
+  labels:
+    helm.sh/chart: globalshop-backend-0.1.0
+    app.kubernetes.io/name: globalshop-backend
+    app.kubernetes.io/instance: globalshop-backend
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken:
+---
+# Source: globalshop-backend/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: globalshop-backend
+  labels:
+    helm.sh/chart: globalshop-backend-0.1.0
+    app.kubernetes.io/name: globalshop-backend
+    app.kubernetes.io/instance: globalshop-backend
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: globalshop-backend
+    app.kubernetes.io/instance: globalshop-backend
+---
+# Source: globalshop-backend/templates/deployment.yaml
+ports:
+          - containerPort: 3000
+            name: http
+---
+# Source: globalshop-backend/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "globalshop-backend-test-connection"
+  labels:
+    helm.sh/chart: globalshop-backend-0.1.0
+    app.kubernetes.io/name: globalshop-backend
+    app.kubernetes.io/instance: globalshop-backend
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['globalshop-backend:80']
+  restartPolicy: Never

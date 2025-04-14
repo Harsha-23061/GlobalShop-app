@@ -1,0 +1,24 @@
+image:
+  repository: globalshopacr.azurecr.io/globalshop-backend
+  tag: v1
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 4000
+  targetPort: 3000
+
+ingress:
+  enabled: false
+
+resources: {}
+
+serviceAccount:
+  create: true
+  name: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
